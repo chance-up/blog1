@@ -11,9 +11,12 @@ import { compileMDX } from 'next-mdx-remote/rsc'
 import { components } from '@/components/MDXComponents'
 import React from 'react'
 import { slug } from 'github-slugger'
+import { useAuth } from '@/lib/auth/AuthContext'
+import { createPost } from '@/lib/api/posts'
 
 export default function CreatePost() {
   const router = useRouter()
+  const { user, loading, isAdmin } = useAuth()
   const [content, setContent] = useState('')
   const [frontMatter, setFrontMatter] = useState({
     title: '',
@@ -29,6 +32,20 @@ export default function CreatePost() {
   const [compiledContent, setCompiledContent] = useState<React.ReactNode | null>(null)
   const [isCompiling, setIsCompiling] = useState(false)
   const [autoSlug, setAutoSlug] = useState(true)
+
+  // 관리자 권한 확인 및 리디렉션
+  useEffect(() => {
+    if (!loading) {
+      if (!user) {
+        // 로그인되지 않은 경우 로그인 페이지로 리디렉션
+        router.push('/admin/login?callbackUrl=/blog1/create')
+      } else if (!isAdmin) {
+        // 로그인은 되었지만 관리자가 아닌 경우
+        alert('관리자 권한이 필요합니다.')
+        router.push('/blog1')
+      }
+    }
+  }, [user, loading, isAdmin, router])
 
   const handleContentChange = (newContent: string) => {
     setContent(newContent)
@@ -104,18 +121,18 @@ export default function CreatePost() {
         // 추가 필드가 필요하면 여기에 추가
       }
 
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
-      const response = await fetch(`${baseUrl}/api/posts`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(postData),
-      })
+      // 공통 API 함수 사용
+      const { data, error, status } = await createPost(postData)
 
-      if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.error || 'Failed to save content')
+      if (error) {
+        // 인증 오류인 경우 로그인 페이지로 리디렉션
+        if (status === 401) {
+          alert(error)
+          router.push('/admin/login?callbackUrl=/blog1/create')
+          return
+        }
+
+        throw new Error(error)
       }
 
       alert('포스트가 성공적으로 저장되었습니다!')
@@ -164,6 +181,23 @@ export default function CreatePost() {
     if (newPreviewState && !compiledContent) {
       await compilePreview()
     }
+  }
+
+  // 로딩 중이거나 인증 확인 중인 경우 로딩 표시
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-center">
+          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-4 border-blue-600 border-t-transparent"></div>
+          <p>인증 확인 중...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // 인증되지 않았거나 관리자가 아닌 경우 렌더링하지 않음
+  if (!user || !isAdmin) {
+    return null
   }
 
   return (

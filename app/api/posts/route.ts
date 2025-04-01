@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/prisma/prisma'
+import jwt from 'jsonwebtoken'
+import { verifyAdminToken } from '@/lib/auth/utils'
 
 export async function GET(request: Request) {
   try {
@@ -70,6 +72,19 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
+    // 관리자 권한 검증
+    const { isAdmin, error } = await verifyAdminToken(request)
+
+    if (!isAdmin) {
+      return Response.json(
+        {
+          success: false,
+          message: error?.message,
+        },
+        { status: error?.status }
+      )
+    }
+
     const body = await request.json()
 
     // Validate required fields
