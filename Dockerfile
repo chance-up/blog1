@@ -3,9 +3,8 @@ FROM node:20-alpine AS builder
 # 작업 디렉토리 설정
 WORKDIR /app
 
-# 의존성 파일 복사
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
-COPY .yarn ./.yarn
+# 소스 코드 복사 (전체 코드를 먼저 복사)
+COPY . .
 
 # Corepack 활성화 및 의존성 설치
 RUN corepack enable && \
@@ -15,10 +14,7 @@ RUN corepack enable && \
   else echo "Lockfile not found." && exit 1; \
   fi
 
-# 소스 코드 복사
-COPY . .
-
-# Prisma 클라이언트 생성 (npx 대신 yarn 사용)
+# Prisma 클라이언트 생성
 RUN yarn prisma generate
 
 # 애플리케이션 빌드
