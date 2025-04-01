@@ -4514,6 +4514,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@radix-ui/react-label@npm:^2.1.2":
+  version: 2.1.2
+  resolution: "@radix-ui/react-label@npm:2.1.2"
+  dependencies:
+    "@radix-ui/react-primitive": 2.0.2
+  peerDependencies:
+    "@types/react": "*"
+    "@types/react-dom": "*"
+    react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    "@types/react-dom":
+      optional: true
+  checksum: e3d159dcbf41e46aaada532ff04c792791912216eba3c41ef21fab882ea51e0c3ef495d8fa13cf09bb4fb3599afbf3fb31fd187323ce78531859537bc2f7d096
+  languageName: node
+  linkType: hard
+
 "@radix-ui/react-popover@npm:^1.0.7":
   version: 1.1.6
   resolution: "@radix-ui/react-popover@npm:1.1.6"
@@ -4719,7 +4738,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-slot@npm:1.1.2":
+"@radix-ui/react-slot@npm:1.1.2, @radix-ui/react-slot@npm:^1.1.2":
   version: 1.1.2
   resolution: "@radix-ui/react-slot@npm:1.1.2"
   dependencies:
@@ -6407,6 +6426,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"class-variance-authority@npm:^0.7.1":
+  version: 0.7.1
+  resolution: "class-variance-authority@npm:0.7.1"
+  dependencies:
+    clsx: ^2.1.1
+  checksum: e05ba26ef9ec38f7c675047ce366b067d60af6c954dba08f7802af19a9460a534ae752d8fe1294fff99d0fa94a669b16ccebd87e8a20f637c0736cf2751dd2c5
+  languageName: node
+  linkType: hard
+
 "classnames@npm:^2.3.2":
   version: 2.5.1
   resolution: "classnames@npm:2.5.1"
@@ -6489,7 +6517,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clsx@npm:^2.0.0":
+"clsx@npm:^2.0.0, clsx@npm:^2.1.1":
   version: 2.1.1
   resolution: "clsx@npm:2.1.1"
   checksum: acd3e1ab9d8a433ecb3cc2f6a05ab95fe50b4a3cfc5ba47abb6cbf3754585fcb87b84e90c822a1f256c4198e3b41c7f6c391577ffc8678ad587fc0976b24fd57
@@ -10138,6 +10166,15 @@ __metadata:
   dependencies:
     yallist: ^3.0.2
   checksum: c154ae1cbb0c2206d1501a0e94df349653c92c8cbb25236d7e85190bcaf4567a03ac6eb43166fabfa36fd35623694da7233e88d9601fbf411a9a481d85dbd2cb
+  languageName: node
+  linkType: hard
+
+"lucide-react@npm:^0.486.0":
+  version: 0.486.0
+  resolution: "lucide-react@npm:0.486.0"
+  peerDependencies:
+    react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 34baa07b65e73727cc0800f1a62c3dd8b7515a85ae7deacda56139c210a94d96468910e2025b7f69c4433c8a61f32c507a65dbc8e526a86bf048d60131a0d800
   languageName: node
   linkType: hard
 
@@ -13845,6 +13882,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tailwind-merge@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "tailwind-merge@npm:3.1.0"
+  checksum: 013472ef93e8fd47b383e43d36171b6b5075121db63b8850393c59dd4c5b9dff4d086df5522190f24e760450958b2500adef60dc935a12c2e904d3f6906a4e22
+  languageName: node
+  linkType: hard
+
 "tailwind-nextjs-starter-blog@workspace:.":
   version: 0.0.0-use.local
   resolution: "tailwind-nextjs-starter-blog@workspace:."
@@ -13855,6 +13899,8 @@ __metadata:
     "@mdxeditor/editor": ^3.29.1
     "@next/bundle-analyzer": 15.1.4
     "@prisma/client": ^6.5.0
+    "@radix-ui/react-label": ^2.1.2
+    "@radix-ui/react-slot": ^1.1.2
     "@svgr/webpack": ^8.0.1
     "@tailwindcss/forms": ^0.5.9
     "@tailwindcss/postcss": ^4.0.5
@@ -13864,6 +13910,8 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^8.12.0
     "@typescript-eslint/parser": ^8.12.0
     body-scroll-lock: ^4.0.0-beta.0
+    class-variance-authority: ^0.7.1
+    clsx: ^2.1.1
     contentlayer2: 0.5.4
     cross-env: ^7.0.3
     esbuild: 0.20.2
@@ -13878,6 +13926,7 @@ __metadata:
     husky: ^9.0.0
     image-size: 1.0.0
     lint-staged: ^13.0.0
+    lucide-react: ^0.486.0
     next: 15.1.4
     next-contentlayer2: 0.5.4
     next-mdx-remote: ^5.0.0
@@ -13901,7 +13950,9 @@ __metadata:
     remark-gfm: ^4.0.0
     remark-github-blockquote-alert: ^1.2.1
     remark-math: ^6.0.0
+    tailwind-merge: ^3.1.0
     tailwindcss: ^4.0.5
+    tw-animate-css: ^1.2.5
     typescript: ^5.1.3
     unist-util-visit: ^5.0.0
   languageName: unknown
@@ -14046,6 +14097,13 @@ __metadata:
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
   checksum: e4aba30e632b8c8902b47587fd13345e2827fa639e7c3121074d5ee0880723282411a8838f830b55100cbe4517672f84a2472667d355b81e8af165a55dc6203a
+  languageName: node
+  linkType: hard
+
+"tw-animate-css@npm:^1.2.5":
+  version: 1.2.5
+  resolution: "tw-animate-css@npm:1.2.5"
+  checksum: bc9a3409d22704286bf5e6696c242f6d0563408b9d52d98818254ec00cfa2632c8b5172d456d902d566b04903a555e0add511d695579fc1682bd603e05abb200
   languageName: node
   linkType: hard
 

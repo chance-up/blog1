@@ -21,8 +21,10 @@ async function getPostFromSlug(slug: string[]) {
   try {
     // Make sure we have a valid base URL
     const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
+    const slugString = slug.join('/')
 
-    const response = await fetch(`${baseUrl}/api/mdx?id=${slug.join('/')}`, {
+    // 포스트 API를 사용하여 slug로 포스트 가져오기
+    const response = await fetch(`${baseUrl}/api/posts?slug=${slugString}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -36,18 +38,29 @@ async function getPostFromSlug(slug: string[]) {
 
     const data = await response.json()
 
+    // 포스트가 없거나 배열이 비어있는 경우
+    if (!data.posts || data.posts.length === 0) {
+      return null
+    }
+
+    const post = data.posts[0]
+
     // gray-matter를 사용하여 frontmatter와 content 분리
-    const { data: frontmatter, content } = matter(data.content)
+    // 데이터베이스에서 가져온 content에 frontmatter가 포함되어 있다고 가정
+    const { data: frontmatter, content } = matter(post.content)
 
     return {
       content,
       frontmatter: {
         ...frontmatter,
-        slug: slug.join('/'),
-        path: `blog1/${slug.join('/')}`,
-        date: frontmatter.date || new Date().toISOString(),
+        title: post.title || frontmatter.title,
+        slug: slugString,
+        path: `blog1/${slugString}`,
+        date: post.date || frontmatter.date || new Date().toISOString(),
         layout: frontmatter.layout || defaultLayout,
         authors: frontmatter.authors || [],
+        excerpt: post.excerpt || frontmatter.description,
+        tags: post.tags || frontmatter.tags || [],
       },
     }
   } catch (error) {
