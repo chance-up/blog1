@@ -18,8 +18,8 @@ RUN corepack enable && \
 # 소스 코드 복사
 COPY . .
 
-# Prisma 클라이언트 생성
-RUN npx prisma generate
+# Prisma 클라이언트 생성 (npx 대신 yarn 사용)
+RUN yarn prisma generate
 
 # 애플리케이션 빌드
 RUN yarn build
