@@ -7,8 +7,8 @@ WORKDIR /app
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 COPY .yarn ./.yarn
 
-# 의존성 설치
-RUN \
+# Corepack 활성화 및 의존성 설치
+RUN corepack enable && \
   if [ -f yarn.lock ]; then yarn install; \
   elif [ -f package-lock.json ]; then npm ci; \
   elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i; \
