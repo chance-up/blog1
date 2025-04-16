@@ -22,20 +22,36 @@ const postDateTemplate: Intl.DateTimeFormatOptions = {
 }
 
 interface LayoutProps {
-  content: CoreContent<Blog>
+  content: {
+    filePath: string
+    path: string
+    slug: string
+    date: string
+    title: string
+    tags: string[]
+  }
   authorDetails: CoreContent<Authors>[]
   next?: { path: string; title: string }
   prev?: { path: string; title: string }
   children: ReactNode
+  toc: { level: number; text: string; slug: string }[]
 }
 
-export default function PostLayout({ content, authorDetails, next, prev, children }: LayoutProps) {
+export default function PostLayout({
+  content,
+  authorDetails,
+  next,
+  prev,
+  children,
+  toc,
+}: LayoutProps) {
   const { filePath, path, slug, date, title, tags } = content
   const basePath = path.split('/')[0]
 
   return (
     <SectionContainer>
       <ScrollTopAndComment />
+      {/* <>{JSON.stringify(content)}</> */}
       <article>
         <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
           <header className="pt-6 xl:pb-6">
@@ -94,6 +110,30 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               </dd>
             </dl>
             <div className="divide-y divide-gray-200 xl:col-span-3 xl:row-span-2 xl:pb-0 dark:divide-gray-700">
+              {toc && toc.length > 0 && (
+                <div className="mb-8 rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800/50">
+                  <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-gray-100">목차</h2>
+                  <nav className="toc">
+                    <ul className="space-y-2">
+                      {toc.map((heading) => (
+                        <li
+                          key={heading.slug}
+                          style={{ marginLeft: `${(heading.level - 1) * 16}px` }}
+                          className="transition-colors duration-200"
+                        >
+                          <a
+                            href={`#${heading.slug}`}
+                            className="hover:text-primary-500 dark:hover:text-primary-400 block py-1 text-gray-700 dark:text-gray-300"
+                          >
+                            {heading.text}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </nav>
+                </div>
+              )}
+
               <div className="prose dark:prose-invert max-w-none pt-10 pb-8">{children}</div>
               <div className="pt-6 pb-6 text-sm text-gray-700 dark:text-gray-300">
                 <Link href={discussUrl(path)} rel="nofollow">

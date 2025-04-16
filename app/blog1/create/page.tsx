@@ -111,7 +111,7 @@ export default function CreatePost() {
       // API 요청 데이터 준비
       const postData = {
         title: frontMatter.title,
-        content: content,
+        content: JSON.stringify(content), // 콘텐츠를 JSON.stringify로 인코딩
         slug: frontMatter.slug,
         excerpt: frontMatter.description, // description을 excerpt로 사용
         date: frontMatter.date,

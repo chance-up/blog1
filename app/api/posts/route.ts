@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken'
 import { verifyAdminToken } from '@/lib/auth/utils'
 
 export async function GET(request: Request) {
+  console.log('GET!!22')
   try {
     const { searchParams } = new URL(request.url)
 

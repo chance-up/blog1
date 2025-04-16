@@ -53,6 +53,7 @@ export default async function BlogPage() {
                 key={post.id}
                 className="transform rounded-lg border border-gray-200 p-6 transition duration-300 hover:-translate-y-1 hover:shadow-lg"
               >
+                {JSON.stringify(post.slug)}
                 <h2 className="mb-2 text-xl font-semibold">{post.title}</h2>
                 <p className="mb-4 text-sm text-gray-500">
                   {new Date(post.date).toLocaleDateString('ko-KR')}

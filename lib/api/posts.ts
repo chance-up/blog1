@@ -66,7 +66,7 @@ export async function getPostById(id: string) {
  * 특정 포스트 가져오기 (슬러그 기준)
  */
 export async function getPostBySlug(slug: string) {
-  return api.get<{ posts: Post[] }>(`/api/posts?slug=${slug}`)
+  return api.get<Post>(`/api/posts/slug/${slug}`)
 }
 
 /**
