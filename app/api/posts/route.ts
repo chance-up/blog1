@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/prisma/prisma'
-import jwt from 'jsonwebtoken'
-import { verifyAdminToken } from '@/lib/auth/utils'
+import { verifyAdminToken } from '../utils'
 
 export async function GET(request: Request) {
   console.log('GET!!22')

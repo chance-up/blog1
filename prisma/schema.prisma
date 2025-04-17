@@ -19,6 +19,7 @@ model Post {
   slug        String     @unique
   title       String
   content     String     @db.Text
+  summary     String?    @db.Text
   excerpt     String?    @db.Text
   date        DateTime
   updatedAt   DateTime   @updatedAt

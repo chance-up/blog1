@@ -9,7 +9,7 @@ import { compileMDX } from 'next-mdx-remote/rsc'
 import matter from 'gray-matter'
 import rehypeSlug from 'rehype-slug'
 import { extractHeadings } from '@/lib/utils'
-import { getPostBySlug } from '@/lib/api/posts'
+import { getPostBySlug } from '@/lib/api/posts_old'
 
 const defaultLayout = 'PostLayout'
 const layouts = {

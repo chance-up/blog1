@@ -12,7 +12,7 @@ import { components } from '@/components/MDXComponents'
 import React from 'react'
 import { slug } from 'github-slugger'
 import { useAuth } from '@/lib/auth/AuthContext'
-import { createPost } from '@/lib/api/posts'
+import { createPost } from '@/lib/api/posts_old'
 
 export default function CreatePost() {
   const router = useRouter()
@@ -111,7 +111,7 @@ export default function CreatePost() {
       // API 요청 데이터 준비
       const postData = {
         title: frontMatter.title,
-        content: JSON.stringify(content), // 콘텐츠를 JSON.stringify로 인코딩
+        content: content, // 콘텐츠를 JSON.stringify로 인코딩
         slug: frontMatter.slug,
         excerpt: frontMatter.description, // description을 excerpt로 사용
         date: frontMatter.date,
